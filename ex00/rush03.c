@@ -6,14 +6,15 @@
 /*   By: jcampos- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 12:07:16 by jcampos-          #+#    #+#             */
-/*   Updated: 2019/10/05 19:43:15 by jcampos-         ###   ########.fr       */
+/*   Updated: 2019/10/05 22:23:10 by jcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void	cond1(int x, int l, int h);
-void	cond2(int x, int l, int h);
+void	ft_putchar(char c);
+
+void	si(int l, int h, int y, int x);
 
 void	rush(int x, int y)
 {
@@ -22,56 +23,36 @@ void	rush(int x, int y)
 
 	l = 1;
 	h = 1;
-	
-	while(l <= x && h <= y) 
+	while (h <= y)
 	{
-		while(h == 1 || h == y)
+		while (l <= x)
 		{
-			cond1(x, l, h);
+			si(l, h, y, x);
+			l++;
 		}
-		while (h =! 1 && h =! y)
-		{
-			cond2(x, l, h)
-		}
-	}
-
-void 	cond1(int x, int l, int h)
-{
-	if(l == 1 )
-	{
-		ft_putchar('A');				//putchar A
-		l++;							//l++
-	}
-	else if(l == x)	
-	{
-		ft_putchar('C');				//putchar C
-		l = 1;							//l=1
-		h++;							//h++
-	}
-	else 
-	{
-		ft_putchar('B');				//putchar B
-		l++;							//l++
-	}
-}
-
-void 	cond2(int x, int l, int h)
-{
-	if( l == 1)
-	{
-		ft_putchar('B');
-		l++;
-	}
-	else if( l == x )
-	{
-		ft_putchar('B');
 		l = 1;
 		h++;
 	}
-	else
-	{
-		ft_putchar(' ');
-		l++;
-	}
 }
 
+void	si(int l, int h, int y, int x)
+{
+	if ((h == 1 && l == 1) || (h == y && l == 1))
+		ft_putchar('A');
+	else if ((h == 1 && l == x) || (h == y && l == x))
+	{
+		ft_putchar('C');
+		ft_putchar('\n');
+	}
+	else if ((h == 1 && !(l == 1 || l == x)) || (h == y && !(l == 1 || l == x)))
+		ft_putchar('B');
+	else if (l == 1 && !(h == 1 || h == y))
+		ft_putchar('B');
+	else if (l == x && !(h == 1 || h == y))
+	{
+		ft_putchar('B');
+		ft_putchar('\n');
+	}
+	else
+		ft_putchar(' ');
+}
